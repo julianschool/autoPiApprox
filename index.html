@@ -1,0 +1,68 @@
+//Approximation of Pi using the Gregory-Leibniz series.
+//HAPPY PI DAY! Click the right arrow to increase the max number in the series and click the left arrow to decrease it.
+//The red circle shows how the circle would look like if PI was equal to the approximation, and the black circle shows what it should look like.
+//What's the closest you can get to PI?
+
+var maxNumberOfSeries = 1;
+var pi = function(accuracy){
+this.accuracy = accuracy;
+this.pi = 0;
+this.r = 200;
+this.approx = 0;
+this.c = 2*Math.PI*this.r;
+};
+pi.prototype.approximate = function(){
+for (var i = 1; i <= this.accuracy; i += 4){ 
+    this.pi += 1/i-1/(i + 2); 
+}
+this.approx = this.pi*4; 
+};
+pi.prototype.display = function(){
+background(255, 255, 255);
+textAlign(CENTER, CENTER);
+noFill();
+strokeWeight(10);
+stroke(0, 0, 0);
+ellipse(width/2, height/2, (2*Math.PI*this.r)/Math.PI, (2*PI*this.r)/Math.PI);
+strokeWeight(7);
+stroke(255, 0, 0);
+for(var i = 0; i <= 360; i++){
+pushMatrix();
+noStroke();
+fill(255, 0, 0);
+translate(width/2, height/2);
+ellipse((this.c/(2*this.approx))*cos(i), (this.c/(2*this.approx))*sin(i), 5, 5);
+popMatrix();
+}
+textFont(createFont("impact"), 50);
+fill(0, 0, 0);
+text("Approx = " + this.approx.toFixed(15), width/2+5, height/2-50);
+fill(255, 0, 0);
+text("Approx = " + this.approx.toFixed(15), width/2, height/2-50);
+fill(0, 0, 0);
+text("PI = " + Math.PI, width/2, height/2);
+fill(0, 0, 0);
+text("ACCURACY = " + ((this.approx/Math.PI)*100).toFixed(8) + "%", width/2+5, height/2+50);
+fill(128);
+text("ACCURACY = " + ((this.approx/Math.PI)*100).toFixed(8) + "%", width/2, height/2+50);
+textAlign(LEFT, BOTTOM);
+fill(255, 0, 0);
+text("RED = APPROXIMATION", 0, 50);
+fill(0, 0, 0);
+text("BLACK = REAL", 0, 100);
+fill(0, 0, 0);
+textAlign(CENTER, CENTER);
+textFont(createFont("impact"), 30);
+text("Max # of Series: " + String(this.accuracy), width/2, height-50);
+
+};
+draw = function() {
+    var p = new pi(maxNumberOfSeries);
+    p.approximate();
+if(maxNumberOfSeries < 1){
+    maxNumberOfSeries = 1;
+}
+     p.display(); 
+     maxNumberOfSeries+=10000;
+};
+
