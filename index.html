@@ -1,3 +1,22 @@
+<!DOCTYPE html>
+
+<html> 
+ <head>
+    <title>Auto PI Approximation</title> 
+</head>
+ <body>
+    <p align="center"> 
+      <canvas id="mycanvas"></canvas> 
+    </p>
+ </body>
+
+ <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+ 
+ <script>
+    var sketchProc = function(processingInstance) {
+     with (processingInstance) {
+        size(600, 600); 
+        frameRate(60);
 //Approximation of Pi using the Gregory-Leibniz series.
 //HAPPY PI DAY! Click the right arrow to increase the max number in the series and click the left arrow to decrease it.
 //The red circle shows how the circle would look like if PI was equal to the approximation, and the black circle shows what it should look like.
@@ -66,3 +85,12 @@ if(maxNumberOfSeries < 1){
      maxNumberOfSeries+=10000;
 };
 
+
+    }};
+
+    var canvas = document.getElementById("mycanvas"); 
+
+    var processingInstance = new Processing(canvas, sketchProc); 
+ </script>
+
+</html>
